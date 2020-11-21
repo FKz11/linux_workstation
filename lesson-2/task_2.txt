@@ -1,0 +1,60 @@
+2. Управление файлами и каталогами и текстовые редакторы. 
+Создать файл с наполнением, используя несколько способов. 
+Использовать разобранные текстовые редакторы для наполнения файлов данными. 
+Создать копии созданных файлов, создать несколько каталогов с подкаталогами, 
+перенести несколько файлов в созданные каталоги. 
+Перечислить команды и используемые параметры команд.
+
+konstantin@konstantin-VirtualBox:~$ ls
+ Видео   Документы   Загрузки   Изображения   Музыка   Общедоступные  'Рабочий стол'   Шаблоны
+konstantin@konstantin-VirtualBox:~$ touch file1.txt
+konstantin@konstantin-VirtualBox:~$ ls
+ file1.txt   Видео   Документы   Загрузки   Изображения   Музыка   Общедоступные  'Рабочий стол'   Шаблоны
+konstantin@konstantin-VirtualBox:~$ vi file1.txt
+konstantin@konstantin-VirtualBox:~$ konstantin@konstantin-VirtualBox:~$ tail file1.txt
+my
+name
+is
+konstantin
+konstantin@konstantin-VirtualBox:~$ touch file2.txt
+konstantin@konstantin-VirtualBox:~$ nano file2.txt
+konstantin@konstantin-VirtualBox:~$ konstantin@konstantin-VirtualBox:~$ tail file2.txt
+my
+surname
+is
+sergeev
+konstantin@konstantin-VirtualBox:~$ mkdir folder
+konstantin@konstantin-VirtualBox:~$ ls
+ file1.txt   folder   Документы   Изображения   Общедоступные   Шаблоны
+ file2.txt   Видео    Загрузки    Музыка       'Рабочий стол'
+konstantin@konstantin-VirtualBox:~$ rm -rf folder
+konstantin@konstantin-VirtualBox:~$ ls
+ file1.txt   Видео       Загрузки      Музыка         'Рабочий стол'
+ file2.txt   Документы   Изображения   Общедоступные   Шаблоны
+konstantin@konstantin-VirtualBox:~$ mkdir folder1
+konstantin@konstantin-VirtualBox:~$ cd folder1
+konstantin@konstantin-VirtualBox:~/folder1$ cp /home/konstantin/file1.txt file3.txt
+konstantin@konstantin-VirtualBox:~/folder1$ ls
+file3.txt
+konstantin@konstantin-VirtualBox:~/folder1$ tail file3.txt
+my
+name
+is
+konstantin
+konstantin@konstantin-VirtualBox:~/folder1$ mkdir folder2
+konstantin@konstantin-VirtualBox:~/folder1$ cd folder2
+konstantin@konstantin-VirtualBox:~/folder1/folder2$ cp ../../file2.txt file4.txt
+konstantin@konstantin-VirtualBox:~/folder1/folder2$ ls
+file4.txt
+konstantin@konstantin-VirtualBox:~/folder1/folder2$ tail file4.txt
+my
+surname
+is
+sergeev
+konstantin@konstantin-VirtualBox:~/folder1/folder2$ cd ..
+konstantin@konstantin-VirtualBox:~/folder1$ ls
+file3.txt  folder2
+konstantin@konstantin-VirtualBox:~/folder1$ cd ..
+konstantin@konstantin-VirtualBox:~$ ls
+ file1.txt   folder1   Документы   Изображения   Общедоступные   Шаблоны
+ file2.txt   Видео     Загрузки    Музыка       'Рабочий стол'

@@ -1,0 +1,24 @@
+1. Навигация по файловой системе. 
+Попрактиковаться в перемещении между каталогами, 
+используя полный и относительный путь. Перечислить, 
+какие параметры команды cd позволят быстро вернуться в домашний каталог, 
+позволят перейти на уровень выше.
+
+konstantin@konstantin-VirtualBox:~$ cd /usr/local/bin
+konstantin@konstantin-VirtualBox:/usr/local/bin$ pwd
+/usr/local/bin
+konstantin@konstantin-VirtualBox:/usr/local/bin$ cd
+konstantin@konstantin-VirtualBox:~$ pwd
+/home/konstantin
+konstantin@konstantin-VirtualBox:~$ cd Загрузки
+konstantin@konstantin-VirtualBox:~/Загрузки$ pwd
+/home/konstantin/Загрузки
+konstantin@konstantin-VirtualBox:~/Загрузки$ cd ~
+konstantin@konstantin-VirtualBox:~$ pwd
+/home/konstantin
+konstantin@konstantin-VirtualBox:~$ cd Загрузки
+konstantin@konstantin-VirtualBox:~/Загрузки$ pwd
+/home/konstantin/Загрузки
+konstantin@konstantin-VirtualBox:~/Загрузки$ cd ..
+konstantin@konstantin-VirtualBox:~$ pwd
+/home/konstantin
