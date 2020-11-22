@@ -1,0 +1,583 @@
+*3. Управление процессами.
+Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config, 
+отключив аутентификацию по паролю PasswordAuthentication no. 
+Выполните рестарт службы systemctl restart sshd (service sshd restart), 
+верните аутентификацию по паролю, 
+выполните reload службы systemctl reload sshd (services sshd reload).
+В чём различие между действиями restart и reload? 
+Создайте файл при помощи команды cat > file_name, 
+напишите текст и завершите комбинацией ctrl+d. 
+Какой сигнал передадим процессу?*
+
+*При restart PID процесса меняется, при reload не меняется.*
+
+*При комбинации Ctrl + D мы говорим терминалу зарегистрировать EOF (end of file – конец файла), 
+тоесть мы говорим, что хотим выйти из программы, когда как Ctrl + С приказывает прервать
+работу программы, убивает её, отправляя 2 сигнал SIGINT. 
+Ctrl + D похож на 15 сигнал, который "вежливо" просит завершить программу.
+Ctrl + C похож на 9 сигнал, который требует прервать программу. Убивает её.*
+
+konstantin@konstantin-VirtualBox:~$ cat > file_name
+my surname sergeev
+konstantin@konstantin-VirtualBox:~$ cat file_name
+my surname sergeev
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication no                                                                                               
+#PermitEmptyPasswords no
+
+konstantin@konstantin-VirtualBox:~$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 ноя21 ?     00:00:03 /sbin/init splash
+root           2       0  0 ноя21 ?     00:00:00 [kthreadd]
+root           3       2  0 ноя21 ?     00:00:00 [rcu_gp]
+root           4       2  0 ноя21 ?     00:00:00 [rcu_par_gp]
+root           6       2  0 ноя21 ?     00:00:00 [kworker/0:0H-kblockd]
+root           9       2  0 ноя21 ?     00:00:00 [mm_percpu_wq]
+root          10       2  0 ноя21 ?     00:00:00 [ksoftirqd/0]
+root          11       2  0 ноя21 ?     00:00:02 [rcu_sched]
+root          12       2  0 ноя21 ?     00:00:00 [migration/0]
+root          13       2  0 ноя21 ?     00:00:00 [idle_inject/0]
+root          14       2  0 ноя21 ?     00:00:00 [cpuhp/0]
+root          15       2  0 ноя21 ?     00:00:00 [kdevtmpfs]
+root          16       2  0 ноя21 ?     00:00:00 [netns]
+root          17       2  0 ноя21 ?     00:00:00 [rcu_tasks_kthre]
+root          18       2  0 ноя21 ?     00:00:00 [kauditd]
+root          19       2  0 ноя21 ?     00:00:00 [khungtaskd]
+root          20       2  0 ноя21 ?     00:00:00 [oom_reaper]
+root          21       2  0 ноя21 ?     00:00:00 [writeback]
+root          22       2  0 ноя21 ?     00:00:00 [kcompactd0]
+root          23       2  0 ноя21 ?     00:00:00 [ksmd]
+root          24       2  0 ноя21 ?     00:00:00 [khugepaged]
+root          70       2  0 ноя21 ?     00:00:00 [kintegrityd]
+root          71       2  0 ноя21 ?     00:00:00 [kblockd]
+root          72       2  0 ноя21 ?     00:00:00 [blkcg_punt_bio]
+root          73       2  0 ноя21 ?     00:00:00 [tpm_dev_wq]
+root          74       2  0 ноя21 ?     00:00:00 [ata_sff]
+root          75       2  0 ноя21 ?     00:00:00 [md]
+root          76       2  0 ноя21 ?     00:00:00 [edac-poller]
+root          77       2  0 ноя21 ?     00:00:00 [devfreq_wq]
+root          78       2  0 ноя21 ?     00:00:00 [watchdogd]
+root          81       2  0 ноя21 ?     00:00:00 [kswapd0]
+root          82       2  0 ноя21 ?     00:00:00 [ecryptfs-kthrea]
+root          84       2  0 ноя21 ?     00:00:00 [kthrotld]
+root          85       2  0 ноя21 ?     00:00:00 [acpi_thermal_pm]
+root          86       2  0 ноя21 ?     00:00:00 [scsi_eh_0]
+root          87       2  0 ноя21 ?     00:00:00 [scsi_tmf_0]
+root          88       2  0 ноя21 ?     00:00:00 [scsi_eh_1]
+root          89       2  0 ноя21 ?     00:00:00 [scsi_tmf_1]
+root          91       2  0 ноя21 ?     00:00:00 [vfio-irqfd-clea]
+root          93       2  0 ноя21 ?     00:00:00 [ipv6_addrconf]
+root         102       2  0 ноя21 ?     00:00:00 [kstrp]
+root         105       2  0 ноя21 ?     00:00:00 [kworker/u3:0]
+root         118       2  0 ноя21 ?     00:00:00 [charger_manager]
+root         159       2  0 ноя21 ?     00:00:00 [scsi_eh_2]
+root         160       2  0 ноя21 ?     00:00:00 [kworker/0:1H-kblockd]
+root         161       2  0 ноя21 ?     00:00:00 [scsi_tmf_2]
+root         191       2  0 ноя21 ?     00:00:00 [jbd2/sda1-8]
+root         192       2  0 ноя21 ?     00:00:00 [ext4-rsv-conver]
+root         231       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd-journald
+root         257       1  0 ноя21 ?     00:00:02 /lib/systemd/systemd-udevd
+root         261       2  0 ноя21 ?     00:00:00 [loop0]
+root         263       2  0 ноя21 ?     00:00:00 [loop1]
+root         266       2  0 ноя21 ?     00:00:00 [loop2]
+root         268       2  0 ноя21 ?     00:00:00 [loop3]
+root         270       2  0 ноя21 ?     00:00:00 [loop4]
+root         287       2  0 ноя21 ?     00:00:00 [loop5]
+root         288       2  0 ноя21 ?     00:00:00 [loop6]
+root         289       2  0 ноя21 ?     00:00:00 [loop7]
+root         290       2  0 ноя21 ?     00:00:00 [loop8]
+systemd+     314       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-resolved
+root         338       2  0 ноя21 ?     00:00:00 [iprt-VBoxWQueue]
+root         353       2  0 ноя21 ?     00:00:00 [irq/18-vmwgfx]
+root         354       2  0 ноя21 ?     00:00:00 [ttm_swap]
+root         362       2  0 ноя21 ?     00:00:00 [cryptd]
+root         433       1  0 ноя21 ?     00:00:00 /usr/lib/accountsservice/accounts-daemon
+root         434       1  0 ноя21 ?     00:00:00 /usr/sbin/acpid
+avahi        438       1  0 ноя21 ?     00:00:00 avahi-daemon: running [konstantin-VirtualBox.local]
+root         441       1  0 ноя21 ?     00:00:00 /usr/sbin/cron -f
+message+     444       1  0 ноя21 ?     00:00:07 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfil
+root         445       1  0 ноя21 ?     00:00:07 /usr/sbin/NetworkManager --no-daemon
+root         461       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root         464       1  0 ноя21 ?     00:00:05 /usr/lib/policykit-1/polkitd --no-debug
+syslog       474       1  0 ноя21 ?     00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         475       1  0 ноя21 ?     00:00:06 /usr/lib/snapd/snapd
+root         477       1  0 ноя21 ?     00:00:00 /usr/libexec/switcheroo-control
+root         482       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-logind
+root         484       1  0 ноя21 ?     00:00:00 /usr/lib/udisks2/udisksd
+root         488       1  0 ноя21 ?     00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+avahi        507     438  0 ноя21 ?     00:00:00 avahi-daemon: chroot helper
+root         574       1  0 ноя21 ?     00:00:00 /usr/sbin/ModemManager --filter-policy=strict
+root         578       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-s
+whoopsie     691       1  0 ноя21 ?     00:00:00 /usr/bin/whoopsie -f
+kernoops     698       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops --test
+kernoops     703       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops
+root         884       1  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         885     884  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         904       1  0 ноя21 ?     00:00:07 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh
+root         912       1  0 ноя21 ?     00:00:00 /usr/sbin/gdm3
+root         917     912  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-autologin]
+konstan+     922       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd --user
+konstan+     923     922  0 ноя21 ?     00:00:00 (sd-pam)
+konstan+     929     922  0 ноя21 ?     00:00:00 /usr/bin/pulseaudio --daemonize=no --log-target=journal
+konstan+     931     922  0 ноя21 ?     00:00:00 /usr/libexec/tracker-miner-fs
+konstan+     934       1  0 ноя21 ?     00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+konstan+     938     922  0 ноя21 ?     00:00:01 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfi
+konstan+     942     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd
+konstan+     947     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+konstan+     949     917  0 ноя21 tty2  00:00:00 /usr/lib/gdm3/gdm-x-session --run-script env GNOME_SHELL_SESSION_MOD
+konstan+     953     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-udisks2-volume-monitor
+konstan+     971     949  0 ноя21 tty2  00:00:08 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1000/gdm/Xauthor
+konstan+     975     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-goa-volume-monitor
+rtkit        976       1  0 ноя21 ?     00:00:00 /usr/libexec/rtkit-daemon
+konstan+     982     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-daemon
+konstan+     992     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-identity-service
+konstan+     996     922  0 ноя21 ?     00:00:02 /usr/libexec/gvfs-afc-volume-monitor
+konstan+    1006     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-mtp-volume-monitor
+konstan+    1010     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-gphoto2-volume-monitor
+root        1015       1  0 ноя21 ?     00:00:01 /usr/lib/upower/upowerd
+konstan+    1026     949  0 ноя21 tty2  00:00:00 /usr/libexec/gnome-session-binary --systemd --systemd --session=ubun
+konstan+    1107       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1108    1107  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1118       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1119    1118  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1129       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1130    1129  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1135       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --draganddrop
+konstan+    1136    1135  0 ноя21 ?     00:01:53 /usr/bin/VBoxClient --draganddrop
+konstan+    1145    1026  0 ноя21 ?     00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch env GNOME_SHELL_SESSION_MODE=u
+konstan+    1165     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi-bus-launcher
+konstan+    1171    1165  0 ноя21 ?     00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/acces
+konstan+    1177     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-ctl --monitor
+konstan+    1184     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-binary --systemd-service --session=ubuntu
+konstan+    1198     922  0 ноя21 ?     00:00:57 /usr/bin/gnome-shell
+konstan+    1218    1198  0 ноя21 ?     00:00:00 ibus-daemon --panel disable --xim
+konstan+    1222    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-memconf
+konstan+    1223    1218  0 ноя21 ?     00:00:03 /usr/libexec/ibus-extension-gtk3
+konstan+    1226     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-x11 --kill-daemon
+konstan+    1229     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-portal
+konstan+    1240     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+konstan+    1244     922  0 ноя21 ?     00:00:00 /usr/libexec/xdg-permission-store
+konstan+    1249     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-shell-calendar-server
+konstan+    1266     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-source-registry
+konstan+    1280     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-calendar-factory
+konstan+    1290     922  0 ноя21 ?     00:00:00 /usr/libexec/dconf-service
+konstan+    1294     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-addressbook-factory
+konstan+    1298     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-metadata
+konstan+    1329     942  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-trash --spawner :1.3 /org/gtk/gvfs/exec_spaw/0
+konstan+    1335     922  0 ноя21 ?     00:00:00 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+konstan+    1352     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-a11y-settings
+konstan+    1354     922  0 ноя21 ?     00:00:01 /usr/libexec/gsd-color
+konstan+    1358     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-datetime
+konstan+    1364     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-housekeeping
+konstan+    1365     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-keyboard
+konstan+    1369     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-media-keys
+konstan+    1370     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-power
+konstan+    1372     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-print-notifications
+konstan+    1373     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-rfkill
+konstan+    1376     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-screensaver-proxy
+konstan+    1382     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sharing
+konstan+    1385     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-smartcard
+konstan+    1388    1184  0 ноя21 ?     00:00:00 /usr/libexec/gsd-disk-utility-notify
+konstan+    1390     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sound
+konstan+    1393     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-usb-protection
+konstan+    1395     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wacom
+konstan+    1398     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wwan
+konstan+    1399    1184  0 ноя21 ?     00:00:00 /usr/libexec/evolution-data-server/evolution-alarm-notify
+konstan+    1400     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-xsettings
+colord      1462       1  0 ноя21 ?     00:00:00 /usr/libexec/colord
+konstan+    1465     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-printer
+konstan+    1513    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-engine-simple
+konstan+    1613     922  0 ноя21 ?     00:00:00 /usr/bin/seahorse --gapplication-service
+konstan+    1615     922  0 ноя21 ?     00:00:00 /usr/bin/gnome-calendar --gapplication-service
+konstan+    1616     922  0 ноя21 ?     00:00:02 /usr/libexec/gnome-terminal-server
+konstan+    1656    1616  0 ноя21 pts/0 00:00:00 bash
+konstan+    1831    1184  0 ноя21 ?     00:00:01 update-notifier
+root        3069     917  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-password]
+root        5142       2  0 00:00 ?        00:00:04 [kworker/0:1-cgroup_destroy]
+root        5143       1  0 00:00 ?        00:00:00 /usr/sbin/cupsd -l
+root        5145       1  0 00:00 ?        00:00:00 /usr/sbin/cups-browsed
+root        5582       2  0 03:22 ?        00:00:00 [kworker/u2:1-events_power_efficient]
+root        5596       2  0 03:24 ?        00:00:00 [kworker/0:2-events]
+root        5607       1  0 03:24 ?        00:00:00 sshd: konstantin [priv]
+konstan+    5697    5607  0 03:24 ?        00:00:00 sshd: konstantin@pts/1
+konstan+    5698    5697  0 03:24 pts/1    00:00:00 -bash
+root        5799       2  0 03:32 ?        00:00:00 [kworker/u2:0-events_power_efficient]
+root        5828       1  0 03:35 ?        00:00:00 /usr/libexec/fwupd/fwupd
+root        5839       2  0 03:35 ?        00:00:00 [kworker/0:0-events]
+root        5884       1  0 03:36 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root        5921       2  0 03:37 ?        00:00:00 [kworker/0:3-events]
+root        5937       2  0 03:37 ?        00:00:00 [kworker/0:4-events]
+root        5940       2  0 03:38 ?        00:00:00 [kworker/u2:2-events_unbound]
+root        5941       1  0 03:39 ?        00:00:00 /usr/libexec/fprintd
+konstan+    5962    5698  0 03:39 pts/1    00:00:00 ps -ef
+konstantin@konstantin-VirtualBox:~$ systemctl restart sshd
+konstantin@konstantin-VirtualBox:~$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 ноя21 ?     00:00:03 /sbin/init splash
+root           2       0  0 ноя21 ?     00:00:00 [kthreadd]
+root           3       2  0 ноя21 ?     00:00:00 [rcu_gp]
+root           4       2  0 ноя21 ?     00:00:00 [rcu_par_gp]
+root           6       2  0 ноя21 ?     00:00:00 [kworker/0:0H-kblockd]
+root           9       2  0 ноя21 ?     00:00:00 [mm_percpu_wq]
+root          10       2  0 ноя21 ?     00:00:00 [ksoftirqd/0]
+root          11       2  0 ноя21 ?     00:00:02 [rcu_sched]
+root          12       2  0 ноя21 ?     00:00:00 [migration/0]
+root          13       2  0 ноя21 ?     00:00:00 [idle_inject/0]
+root          14       2  0 ноя21 ?     00:00:00 [cpuhp/0]
+root          15       2  0 ноя21 ?     00:00:00 [kdevtmpfs]
+root          16       2  0 ноя21 ?     00:00:00 [netns]
+root          17       2  0 ноя21 ?     00:00:00 [rcu_tasks_kthre]
+root          18       2  0 ноя21 ?     00:00:00 [kauditd]
+root          19       2  0 ноя21 ?     00:00:00 [khungtaskd]
+root          20       2  0 ноя21 ?     00:00:00 [oom_reaper]
+root          21       2  0 ноя21 ?     00:00:00 [writeback]
+root          22       2  0 ноя21 ?     00:00:00 [kcompactd0]
+root          23       2  0 ноя21 ?     00:00:00 [ksmd]
+root          24       2  0 ноя21 ?     00:00:00 [khugepaged]
+root          70       2  0 ноя21 ?     00:00:00 [kintegrityd]
+root          71       2  0 ноя21 ?     00:00:00 [kblockd]
+root          72       2  0 ноя21 ?     00:00:00 [blkcg_punt_bio]
+root          73       2  0 ноя21 ?     00:00:00 [tpm_dev_wq]
+root          74       2  0 ноя21 ?     00:00:00 [ata_sff]
+root          75       2  0 ноя21 ?     00:00:00 [md]
+root          76       2  0 ноя21 ?     00:00:00 [edac-poller]
+root          77       2  0 ноя21 ?     00:00:00 [devfreq_wq]
+root          78       2  0 ноя21 ?     00:00:00 [watchdogd]
+root          81       2  0 ноя21 ?     00:00:00 [kswapd0]
+root          82       2  0 ноя21 ?     00:00:00 [ecryptfs-kthrea]
+root          84       2  0 ноя21 ?     00:00:00 [kthrotld]
+root          85       2  0 ноя21 ?     00:00:00 [acpi_thermal_pm]
+root          86       2  0 ноя21 ?     00:00:00 [scsi_eh_0]
+root          87       2  0 ноя21 ?     00:00:00 [scsi_tmf_0]
+root          88       2  0 ноя21 ?     00:00:00 [scsi_eh_1]
+root          89       2  0 ноя21 ?     00:00:00 [scsi_tmf_1]
+root          91       2  0 ноя21 ?     00:00:00 [vfio-irqfd-clea]
+root          93       2  0 ноя21 ?     00:00:00 [ipv6_addrconf]
+root         102       2  0 ноя21 ?     00:00:00 [kstrp]
+root         105       2  0 ноя21 ?     00:00:00 [kworker/u3:0]
+root         118       2  0 ноя21 ?     00:00:00 [charger_manager]
+root         159       2  0 ноя21 ?     00:00:00 [scsi_eh_2]
+root         160       2  0 ноя21 ?     00:00:00 [kworker/0:1H-kblockd]
+root         161       2  0 ноя21 ?     00:00:00 [scsi_tmf_2]
+root         191       2  0 ноя21 ?     00:00:00 [jbd2/sda1-8]
+root         192       2  0 ноя21 ?     00:00:00 [ext4-rsv-conver]
+root         231       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd-journald
+root         257       1  0 ноя21 ?     00:00:02 /lib/systemd/systemd-udevd
+root         261       2  0 ноя21 ?     00:00:00 [loop0]
+root         263       2  0 ноя21 ?     00:00:00 [loop1]
+root         266       2  0 ноя21 ?     00:00:00 [loop2]
+root         268       2  0 ноя21 ?     00:00:00 [loop3]
+root         270       2  0 ноя21 ?     00:00:00 [loop4]
+root         287       2  0 ноя21 ?     00:00:00 [loop5]
+root         288       2  0 ноя21 ?     00:00:00 [loop6]
+root         289       2  0 ноя21 ?     00:00:00 [loop7]
+root         290       2  0 ноя21 ?     00:00:00 [loop8]
+systemd+     314       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-resolved
+root         338       2  0 ноя21 ?     00:00:00 [iprt-VBoxWQueue]
+root         353       2  0 ноя21 ?     00:00:00 [irq/18-vmwgfx]
+root         354       2  0 ноя21 ?     00:00:00 [ttm_swap]
+root         362       2  0 ноя21 ?     00:00:00 [cryptd]
+root         433       1  0 ноя21 ?     00:00:00 /usr/lib/accountsservice/accounts-daemon
+root         434       1  0 ноя21 ?     00:00:00 /usr/sbin/acpid
+avahi        438       1  0 ноя21 ?     00:00:00 avahi-daemon: running [konstantin-VirtualBox.local]
+root         441       1  0 ноя21 ?     00:00:00 /usr/sbin/cron -f
+message+     444       1  0 ноя21 ?     00:00:07 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfil
+root         445       1  0 ноя21 ?     00:00:07 /usr/sbin/NetworkManager --no-daemon
+root         461       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root         464       1  0 ноя21 ?     00:00:05 /usr/lib/policykit-1/polkitd --no-debug
+syslog       474       1  0 ноя21 ?     00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         475       1  0 ноя21 ?     00:00:06 /usr/lib/snapd/snapd
+root         477       1  0 ноя21 ?     00:00:00 /usr/libexec/switcheroo-control
+root         482       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-logind
+root         484       1  0 ноя21 ?     00:00:00 /usr/lib/udisks2/udisksd
+root         488       1  0 ноя21 ?     00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+avahi        507     438  0 ноя21 ?     00:00:00 avahi-daemon: chroot helper
+root         574       1  0 ноя21 ?     00:00:00 /usr/sbin/ModemManager --filter-policy=strict
+root         578       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-s
+whoopsie     691       1  0 ноя21 ?     00:00:00 /usr/bin/whoopsie -f
+kernoops     698       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops --test
+kernoops     703       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops
+root         884       1  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         885     884  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         904       1  0 ноя21 ?     00:00:07 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh
+root         912       1  0 ноя21 ?     00:00:00 /usr/sbin/gdm3
+root         917     912  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-autologin]
+konstan+     922       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd --user
+konstan+     923     922  0 ноя21 ?     00:00:00 (sd-pam)
+konstan+     929     922  0 ноя21 ?     00:00:00 /usr/bin/pulseaudio --daemonize=no --log-target=journal
+konstan+     931     922  0 ноя21 ?     00:00:00 /usr/libexec/tracker-miner-fs
+konstan+     934       1  0 ноя21 ?     00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+konstan+     938     922  0 ноя21 ?     00:00:01 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfi
+konstan+     942     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd
+konstan+     947     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+konstan+     949     917  0 ноя21 tty2  00:00:00 /usr/lib/gdm3/gdm-x-session --run-script env GNOME_SHELL_SESSION_MOD
+konstan+     953     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-udisks2-volume-monitor
+konstan+     971     949  0 ноя21 tty2  00:00:08 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1000/gdm/Xauthor
+konstan+     975     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-goa-volume-monitor
+rtkit        976       1  0 ноя21 ?     00:00:00 /usr/libexec/rtkit-daemon
+konstan+     982     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-daemon
+konstan+     992     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-identity-service
+konstan+     996     922  0 ноя21 ?     00:00:02 /usr/libexec/gvfs-afc-volume-monitor
+konstan+    1006     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-mtp-volume-monitor
+konstan+    1010     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-gphoto2-volume-monitor
+root        1015       1  0 ноя21 ?     00:00:01 /usr/lib/upower/upowerd
+konstan+    1026     949  0 ноя21 tty2  00:00:00 /usr/libexec/gnome-session-binary --systemd --systemd --session=ubun
+konstan+    1107       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1108    1107  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1118       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1119    1118  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1129       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1130    1129  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1135       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --draganddrop
+konstan+    1136    1135  0 ноя21 ?     00:01:53 /usr/bin/VBoxClient --draganddrop
+konstan+    1145    1026  0 ноя21 ?     00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch env GNOME_SHELL_SESSION_MODE=u
+konstan+    1165     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi-bus-launcher
+konstan+    1171    1165  0 ноя21 ?     00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/acces
+konstan+    1177     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-ctl --monitor
+konstan+    1184     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-binary --systemd-service --session=ubuntu
+konstan+    1198     922  0 ноя21 ?     00:00:57 /usr/bin/gnome-shell
+konstan+    1218    1198  0 ноя21 ?     00:00:00 ibus-daemon --panel disable --xim
+konstan+    1222    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-memconf
+konstan+    1223    1218  0 ноя21 ?     00:00:03 /usr/libexec/ibus-extension-gtk3
+konstan+    1226     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-x11 --kill-daemon
+konstan+    1229     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-portal
+konstan+    1240     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+konstan+    1244     922  0 ноя21 ?     00:00:00 /usr/libexec/xdg-permission-store
+konstan+    1249     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-shell-calendar-server
+konstan+    1266     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-source-registry
+konstan+    1280     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-calendar-factory
+konstan+    1290     922  0 ноя21 ?     00:00:00 /usr/libexec/dconf-service
+konstan+    1294     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-addressbook-factory
+konstan+    1298     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-metadata
+konstan+    1329     942  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-trash --spawner :1.3 /org/gtk/gvfs/exec_spaw/0
+konstan+    1335     922  0 ноя21 ?     00:00:00 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+konstan+    1352     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-a11y-settings
+konstan+    1354     922  0 ноя21 ?     00:00:01 /usr/libexec/gsd-color
+konstan+    1358     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-datetime
+konstan+    1364     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-housekeeping
+konstan+    1365     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-keyboard
+konstan+    1369     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-media-keys
+konstan+    1370     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-power
+konstan+    1372     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-print-notifications
+konstan+    1373     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-rfkill
+konstan+    1376     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-screensaver-proxy
+konstan+    1382     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sharing
+konstan+    1385     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-smartcard
+konstan+    1388    1184  0 ноя21 ?     00:00:00 /usr/libexec/gsd-disk-utility-notify
+konstan+    1390     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sound
+konstan+    1393     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-usb-protection
+konstan+    1395     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wacom
+konstan+    1398     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wwan
+konstan+    1399    1184  0 ноя21 ?     00:00:00 /usr/libexec/evolution-data-server/evolution-alarm-notify
+konstan+    1400     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-xsettings
+colord      1462       1  0 ноя21 ?     00:00:00 /usr/libexec/colord
+konstan+    1465     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-printer
+konstan+    1513    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-engine-simple
+konstan+    1613     922  0 ноя21 ?     00:00:00 /usr/bin/seahorse --gapplication-service
+konstan+    1615     922  0 ноя21 ?     00:00:00 /usr/bin/gnome-calendar --gapplication-service
+konstan+    1616     922  0 ноя21 ?     00:00:02 /usr/libexec/gnome-terminal-server
+konstan+    1656    1616  0 ноя21 pts/0 00:00:00 bash
+konstan+    1831    1184  0 ноя21 ?     00:00:01 update-notifier
+root        3069     917  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-password]
+root        5142       2  0 00:00 ?        00:00:04 [kworker/0:1-cgroup_destroy]
+root        5143       1  0 00:00 ?        00:00:00 /usr/sbin/cupsd -l
+root        5145       1  0 00:00 ?        00:00:00 /usr/sbin/cups-browsed
+root        5582       2  0 03:22 ?        00:00:00 [kworker/u2:1-events_power_efficient]
+root        5596       2  0 03:24 ?        00:00:00 [kworker/0:2-events]
+root        5607       1  0 03:24 ?        00:00:00 sshd: konstantin [priv]
+konstan+    5697    5607  0 03:24 ?        00:00:00 sshd: konstantin@pts/1
+konstan+    5698    5697  0 03:24 pts/1    00:00:00 -bash
+root        5799       2  0 03:32 ?        00:00:00 [kworker/u2:0-events_power_efficient]
+root        5828       1  0 03:35 ?        00:00:00 /usr/libexec/fwupd/fwupd
+root        5839       2  0 03:35 ?        00:00:00 [kworker/0:0-events]
+root        5921       2  0 03:37 ?        00:00:00 [kworker/0:3-events]
+root        5937       2  0 03:37 ?        00:00:00 [kworker/0:4-events]
+root        5940       2  0 03:38 ?        00:00:00 [kworker/u2:2-events_unbound]
+root        6003       1  0 03:40 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+konstan+    6014    5698  0 03:40 pts/1    00:00:00 ps -ef
+konstantin@konstantin-VirtualBox:~$ systemctl reload sshd
+konstantin@konstantin-VirtualBox:~$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 ноя21 ?     00:00:03 /sbin/init splash
+root           2       0  0 ноя21 ?     00:00:00 [kthreadd]
+root           3       2  0 ноя21 ?     00:00:00 [rcu_gp]
+root           4       2  0 ноя21 ?     00:00:00 [rcu_par_gp]
+root           6       2  0 ноя21 ?     00:00:00 [kworker/0:0H-kblockd]
+root           9       2  0 ноя21 ?     00:00:00 [mm_percpu_wq]
+root          10       2  0 ноя21 ?     00:00:00 [ksoftirqd/0]
+root          11       2  0 ноя21 ?     00:00:02 [rcu_sched]
+root          12       2  0 ноя21 ?     00:00:00 [migration/0]
+root          13       2  0 ноя21 ?     00:00:00 [idle_inject/0]
+root          14       2  0 ноя21 ?     00:00:00 [cpuhp/0]
+root          15       2  0 ноя21 ?     00:00:00 [kdevtmpfs]
+root          16       2  0 ноя21 ?     00:00:00 [netns]
+root          17       2  0 ноя21 ?     00:00:00 [rcu_tasks_kthre]
+root          18       2  0 ноя21 ?     00:00:00 [kauditd]
+root          19       2  0 ноя21 ?     00:00:00 [khungtaskd]
+root          20       2  0 ноя21 ?     00:00:00 [oom_reaper]
+root          21       2  0 ноя21 ?     00:00:00 [writeback]
+root          22       2  0 ноя21 ?     00:00:00 [kcompactd0]
+root          23       2  0 ноя21 ?     00:00:00 [ksmd]
+root          24       2  0 ноя21 ?     00:00:00 [khugepaged]
+root          70       2  0 ноя21 ?     00:00:00 [kintegrityd]
+root          71       2  0 ноя21 ?     00:00:00 [kblockd]
+root          72       2  0 ноя21 ?     00:00:00 [blkcg_punt_bio]
+root          73       2  0 ноя21 ?     00:00:00 [tpm_dev_wq]
+root          74       2  0 ноя21 ?     00:00:00 [ata_sff]
+root          75       2  0 ноя21 ?     00:00:00 [md]
+root          76       2  0 ноя21 ?     00:00:00 [edac-poller]
+root          77       2  0 ноя21 ?     00:00:00 [devfreq_wq]
+root          78       2  0 ноя21 ?     00:00:00 [watchdogd]
+root          81       2  0 ноя21 ?     00:00:00 [kswapd0]
+root          82       2  0 ноя21 ?     00:00:00 [ecryptfs-kthrea]
+root          84       2  0 ноя21 ?     00:00:00 [kthrotld]
+root          85       2  0 ноя21 ?     00:00:00 [acpi_thermal_pm]
+root          86       2  0 ноя21 ?     00:00:00 [scsi_eh_0]
+root          87       2  0 ноя21 ?     00:00:00 [scsi_tmf_0]
+root          88       2  0 ноя21 ?     00:00:00 [scsi_eh_1]
+root          89       2  0 ноя21 ?     00:00:00 [scsi_tmf_1]
+root          91       2  0 ноя21 ?     00:00:00 [vfio-irqfd-clea]
+root          93       2  0 ноя21 ?     00:00:00 [ipv6_addrconf]
+root         102       2  0 ноя21 ?     00:00:00 [kstrp]
+root         105       2  0 ноя21 ?     00:00:00 [kworker/u3:0]
+root         118       2  0 ноя21 ?     00:00:00 [charger_manager]
+root         159       2  0 ноя21 ?     00:00:00 [scsi_eh_2]
+root         160       2  0 ноя21 ?     00:00:00 [kworker/0:1H-kblockd]
+root         161       2  0 ноя21 ?     00:00:00 [scsi_tmf_2]
+root         191       2  0 ноя21 ?     00:00:00 [jbd2/sda1-8]
+root         192       2  0 ноя21 ?     00:00:00 [ext4-rsv-conver]
+root         231       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd-journald
+root         257       1  0 ноя21 ?     00:00:02 /lib/systemd/systemd-udevd
+root         261       2  0 ноя21 ?     00:00:00 [loop0]
+root         263       2  0 ноя21 ?     00:00:00 [loop1]
+root         266       2  0 ноя21 ?     00:00:00 [loop2]
+root         268       2  0 ноя21 ?     00:00:00 [loop3]
+root         270       2  0 ноя21 ?     00:00:00 [loop4]
+root         287       2  0 ноя21 ?     00:00:00 [loop5]
+root         288       2  0 ноя21 ?     00:00:00 [loop6]
+root         289       2  0 ноя21 ?     00:00:00 [loop7]
+root         290       2  0 ноя21 ?     00:00:00 [loop8]
+systemd+     314       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-resolved
+root         338       2  0 ноя21 ?     00:00:00 [iprt-VBoxWQueue]
+root         353       2  0 ноя21 ?     00:00:00 [irq/18-vmwgfx]
+root         354       2  0 ноя21 ?     00:00:00 [ttm_swap]
+root         362       2  0 ноя21 ?     00:00:00 [cryptd]
+root         433       1  0 ноя21 ?     00:00:00 /usr/lib/accountsservice/accounts-daemon
+root         434       1  0 ноя21 ?     00:00:00 /usr/sbin/acpid
+avahi        438       1  0 ноя21 ?     00:00:00 avahi-daemon: running [konstantin-VirtualBox.local]
+root         441       1  0 ноя21 ?     00:00:00 /usr/sbin/cron -f
+message+     444       1  0 ноя21 ?     00:00:07 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfil
+root         445       1  0 ноя21 ?     00:00:07 /usr/sbin/NetworkManager --no-daemon
+root         461       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root         464       1  0 ноя21 ?     00:00:06 /usr/lib/policykit-1/polkitd --no-debug
+syslog       474       1  0 ноя21 ?     00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         475       1  0 ноя21 ?     00:00:06 /usr/lib/snapd/snapd
+root         477       1  0 ноя21 ?     00:00:00 /usr/libexec/switcheroo-control
+root         482       1  0 ноя21 ?     00:00:00 /lib/systemd/systemd-logind
+root         484       1  0 ноя21 ?     00:00:00 /usr/lib/udisks2/udisksd
+root         488       1  0 ноя21 ?     00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+avahi        507     438  0 ноя21 ?     00:00:00 avahi-daemon: chroot helper
+root         574       1  0 ноя21 ?     00:00:00 /usr/sbin/ModemManager --filter-policy=strict
+root         578       1  0 ноя21 ?     00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-s
+whoopsie     691       1  0 ноя21 ?     00:00:00 /usr/bin/whoopsie -f
+kernoops     698       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops --test
+kernoops     703       1  0 ноя21 ?     00:00:00 /usr/sbin/kerneloops
+root         884       1  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         885     884  0 ноя21 ?     00:00:00 VBoxClient --vmsvga
+root         904       1  0 ноя21 ?     00:00:07 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh
+root         912       1  0 ноя21 ?     00:00:00 /usr/sbin/gdm3
+root         917     912  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-autologin]
+konstan+     922       1  0 ноя21 ?     00:00:01 /lib/systemd/systemd --user
+konstan+     923     922  0 ноя21 ?     00:00:00 (sd-pam)
+konstan+     929     922  0 ноя21 ?     00:00:00 /usr/bin/pulseaudio --daemonize=no --log-target=journal
+konstan+     931     922  0 ноя21 ?     00:00:00 /usr/libexec/tracker-miner-fs
+konstan+     934       1  0 ноя21 ?     00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+konstan+     938     922  0 ноя21 ?     00:00:01 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfi
+konstan+     942     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd
+konstan+     947     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+konstan+     949     917  0 ноя21 tty2  00:00:00 /usr/lib/gdm3/gdm-x-session --run-script env GNOME_SHELL_SESSION_MOD
+konstan+     953     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-udisks2-volume-monitor
+konstan+     971     949  0 ноя21 tty2  00:00:08 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1000/gdm/Xauthor
+konstan+     975     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-goa-volume-monitor
+rtkit        976       1  0 ноя21 ?     00:00:00 /usr/libexec/rtkit-daemon
+konstan+     982     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-daemon
+konstan+     992     922  0 ноя21 ?     00:00:00 /usr/libexec/goa-identity-service
+konstan+     996     922  0 ноя21 ?     00:00:02 /usr/libexec/gvfs-afc-volume-monitor
+konstan+    1006     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-mtp-volume-monitor
+konstan+    1010     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfs-gphoto2-volume-monitor
+root        1015       1  0 ноя21 ?     00:00:01 /usr/lib/upower/upowerd
+konstan+    1026     949  0 ноя21 tty2  00:00:00 /usr/libexec/gnome-session-binary --systemd --systemd --session=ubun
+konstan+    1107       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1108    1107  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --clipboard
+konstan+    1118       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1119    1118  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --display
+konstan+    1129       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1130    1129  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --seamless
+konstan+    1135       1  0 ноя21 ?     00:00:00 /usr/bin/VBoxClient --draganddrop
+konstan+    1136    1135  0 ноя21 ?     00:01:53 /usr/bin/VBoxClient --draganddrop
+konstan+    1145    1026  0 ноя21 ?     00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch env GNOME_SHELL_SESSION_MODE=u
+konstan+    1165     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi-bus-launcher
+konstan+    1171    1165  0 ноя21 ?     00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/acces
+konstan+    1177     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-ctl --monitor
+konstan+    1184     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-session-binary --systemd-service --session=ubuntu
+konstan+    1198     922  0 ноя21 ?     00:00:57 /usr/bin/gnome-shell
+konstan+    1218    1198  0 ноя21 ?     00:00:00 ibus-daemon --panel disable --xim
+konstan+    1222    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-memconf
+konstan+    1223    1218  0 ноя21 ?     00:00:03 /usr/libexec/ibus-extension-gtk3
+konstan+    1226     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-x11 --kill-daemon
+konstan+    1229     922  0 ноя21 ?     00:00:00 /usr/libexec/ibus-portal
+konstan+    1240     922  0 ноя21 ?     00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+konstan+    1244     922  0 ноя21 ?     00:00:00 /usr/libexec/xdg-permission-store
+konstan+    1249     922  0 ноя21 ?     00:00:00 /usr/libexec/gnome-shell-calendar-server
+konstan+    1266     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-source-registry
+konstan+    1280     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-calendar-factory
+konstan+    1290     922  0 ноя21 ?     00:00:00 /usr/libexec/dconf-service
+konstan+    1294     922  0 ноя21 ?     00:00:00 /usr/libexec/evolution-addressbook-factory
+konstan+    1298     922  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-metadata
+konstan+    1329     942  0 ноя21 ?     00:00:00 /usr/libexec/gvfsd-trash --spawner :1.3 /org/gtk/gvfs/exec_spaw/0
+konstan+    1335     922  0 ноя21 ?     00:00:00 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+konstan+    1352     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-a11y-settings
+konstan+    1354     922  0 ноя21 ?     00:00:01 /usr/libexec/gsd-color
+konstan+    1358     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-datetime
+konstan+    1364     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-housekeeping
+konstan+    1365     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-keyboard
+konstan+    1369     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-media-keys
+konstan+    1370     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-power
+konstan+    1372     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-print-notifications
+konstan+    1373     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-rfkill
+konstan+    1376     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-screensaver-proxy
+konstan+    1382     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sharing
+konstan+    1385     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-smartcard
+konstan+    1388    1184  0 ноя21 ?     00:00:00 /usr/libexec/gsd-disk-utility-notify
+konstan+    1390     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-sound
+konstan+    1393     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-usb-protection
+konstan+    1395     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wacom
+konstan+    1398     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-wwan
+konstan+    1399    1184  0 ноя21 ?     00:00:00 /usr/libexec/evolution-data-server/evolution-alarm-notify
+konstan+    1400     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-xsettings
+colord      1462       1  0 ноя21 ?     00:00:00 /usr/libexec/colord
+konstan+    1465     922  0 ноя21 ?     00:00:00 /usr/libexec/gsd-printer
+konstan+    1513    1218  0 ноя21 ?     00:00:00 /usr/libexec/ibus-engine-simple
+konstan+    1613     922  0 ноя21 ?     00:00:00 /usr/bin/seahorse --gapplication-service
+konstan+    1615     922  0 ноя21 ?     00:00:00 /usr/bin/gnome-calendar --gapplication-service
+konstan+    1616     922  0 ноя21 ?     00:00:02 /usr/libexec/gnome-terminal-server
+konstan+    1656    1616  0 ноя21 pts/0 00:00:00 bash
+konstan+    1831    1184  0 ноя21 ?     00:00:01 update-notifier
+root        3069     917  0 ноя21 ?     00:00:00 gdm-session-worker [pam/gdm-password]
+root        5142       2  0 00:00 ?        00:00:04 [kworker/0:1-cgroup_destroy]
+root        5143       1  0 00:00 ?        00:00:00 /usr/sbin/cupsd -l
+root        5145       1  0 00:00 ?        00:00:00 /usr/sbin/cups-browsed
+root        5582       2  0 03:22 ?        00:00:00 [kworker/u2:1-events_power_efficient]
+root        5596       2  0 03:24 ?        00:00:00 [kworker/0:2-events]
+root        5607       1  0 03:24 ?        00:00:00 sshd: konstantin [priv]
+konstan+    5697    5607  0 03:24 ?        00:00:00 sshd: konstantin@pts/1
+konstan+    5698    5697  0 03:24 pts/1    00:00:00 -bash
+root        5799       2  0 03:32 ?        00:00:00 [kworker/u2:0-events_power_efficient]
+root        5828       1  0 03:35 ?        00:00:00 /usr/libexec/fwupd/fwupd
+root        5839       2  0 03:35 ?        00:00:00 [kworker/0:0-events]
+root        5921       2  0 03:37 ?        00:00:00 [kworker/0:3-events]
+root        5937       2  0 03:37 ?        00:00:00 [kworker/0:4-events]
+root        5940       2  0 03:38 ?        00:00:00 [kworker/u2:2-events_unbound]
+root        6003       1  0 03:40 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+konstan+    6033    5698  0 03:40 pts/1    00:00:00 ps -ef
