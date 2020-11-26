@@ -1,0 +1,18 @@
+*6. * Создать в директории для совместной работы поддиректорию для обмена файлами, 
+но чтобы удалять файлы могли только их создатели.*
+
+*f_dev - директория из прошлого задания 5.
+1775 =
+1 - устанавливает, что пользователи могут только создавать, читать и выполнять файлы, 
+но не могут удалять файлы, принадлежащие другим пользователям,
+это ставит Sticky-bit, у others будет стоять t вместо x;
+7 - выдает все права владельцу папки;
+7 - выдает все права группе;
+5 - выдает право на чтение (r-x) другим пользователям.*
+
+konstantin@konstantin-VirtualBox:~$ cd f_dev
+konstantin@konstantin-VirtualBox:~/f_dev$ mkdir files_move
+konstantin@konstantin-VirtualBox:~/f_dev$ sudo chmod 1775 files_move
+konstantin@konstantin-VirtualBox:~/f_dev$ ls -l
+итого 4
+drwxrwsr-t 2 konstantin developer 4096 ноя 26 04:27 files_move
