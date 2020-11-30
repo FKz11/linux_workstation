@@ -1,0 +1,6 @@
+*4. Используя grep, проанализировать файл /var/log/syslog, отобрав события на своё усмотрение.*
+
+konstantin@konstantin-VirtualBox:~$ cat /var/log/syslog | grep '/ssh$'
+Nov 30 12:30:38 konstantin-VirtualBox gnome-keyring-ssh.desktop[1160]: SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+Nov 30 12:30:38 konstantin-VirtualBox gnome-keyring-secrets.desktop[1161]: SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+

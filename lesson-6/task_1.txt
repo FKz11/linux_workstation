@@ -1,0 +1,24 @@
+*1. Написать скрипт, 
+который удаляет из текстового файла пустые строки и заменяет маленькие символы на большие. 
+Воспользуйтесь tr или SED.*
+
+*Использовал SED.*
+
+konstantin@konstantin-VirtualBox:~$ nano test_file.txt
+konstantin@konstantin-VirtualBox:~$ nano script_task1.sh
+konstantin@konstantin-VirtualBox:~$ chmod +x script_task1.sh
+konstantin@konstantin-VirtualBox:~$ cat test_file.txt
+dddd
+
+fdfdfdDDDDDSSSAAAAXXXRRRRRRRdDsWWW
+DDDDDD
+
+konstantin@konstantin-VirtualBox:~$ cat script_task1.sh
+#!/bin/bash
+sed -i -e '/^$/d' -e 's/[a-z]/\U&/g' /home/konstantin/test_file.txt
+konstantin@konstantin-VirtualBox:~$ ./script_task1.sh
+konstantin@konstantin-VirtualBox:~$ cat test_file.txt
+DDDD
+FDFDFDDDDDDSSSAAAAXXXRRRRRRRDDSWWW
+DDDDDD
+
