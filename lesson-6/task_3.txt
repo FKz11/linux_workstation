@@ -1,0 +1,56 @@
+*3. * Использовать команду AWK на вывод длинного списка каталога, чтобы отобразить только права доступа к файлам. 
+Затем отправить в конвейере этот вывод на sort и uniq, чтобы отфильтровать все повторяющиеся строки.*
+
+konstantin@konstantin-VirtualBox:~$ ls -l
+итого 72
+-rw-rw-r--  1 konstantin konstantin   11 ноя 30 21:27  2.txt
+-rw-rw-r--  1 konstantin konstantin   11 ноя 30 20:51  3.txt
+-rw-rw-rw-  1 konstantin konstantin   11 ноя 30 22:31  4.txt
+-rw-rw-r--  1 konstantin konstantin    6 ноя 30 19:52  file3.txt
+drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 05:00  less
+drwxrwxr-x  3 konstantin konstantin 4096 ноя 26 04:53  lesson_5
+drwxrwxr-x 10 konstantin konstantin 4096 ноя 30 22:51  lesson_6
+-rwxrwxr-x  1 konstantin konstantin   80 ноя 30 17:36  script.sh
+-rw-rw-r--  1 konstantin konstantin   47 ноя 30 19:23  test_file.txt
+-rw-rw-r--  1 konstantin konstantin   49 ноя 30 16:59  test_file.txte
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21  Видео
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21  Документы
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 15 04:15  Загрузки
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 13 01:29  Изображения
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21  Музыка
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21  Общедоступные
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21 'Рабочий стол'
+drwxr-xr-x  2 konstantin konstantin 4096 ноя 12 23:21  Шаблоны
+konstantin@konstantin-VirtualBox:~$ ls -l | awk '{ print $1 }'
+итого
+-rw-rw-r--
+-rw-rw-r--
+-rw-rw-rw-
+-rw-rw-r--
+drwxrwxr-x
+drwxrwxr-x
+drwxrwxr-x
+-rwxrwxr-x
+-rw-rw-r--
+-rw-rw-r--
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+konstantin@konstantin-VirtualBox:~$ ls -l | awk '{ print $1 }' | sort -u
+drwxrwxr-x
+drwxr-xr-x
+-rw-rw-r--
+-rw-rw-rw-
+-rwxrwxr-x
+итого
+konstantin@konstantin-VirtualBox:~$ ls -l | awk '{ print $1 }' | sort -u | head -n-1
+drwxrwxr-x
+drwxr-xr-x
+-rw-rw-r--
+-rw-rw-rw-
+-rwxrwxr-x

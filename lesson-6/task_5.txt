@@ -1,0 +1,7 @@
+*5. Создать разовое задание на перезагрузку операционной системы, используя at.*
+
+konstantin@konstantin-VirtualBox:~$ echo 'sudo /usr/sbin/shutdown -r now' | at now + 1 minutes
+warning: commands will be executed using /bin/sh
+job 1 at Tue Dec  1 00:14:00 2020
+konstantin@konstantin-VirtualBox:~$ Connection to 192.168.0.153 closed by remote host.
+Connection to 192.168.0.153 closed.
