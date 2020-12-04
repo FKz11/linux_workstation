@@ -1,0 +1,8 @@
+*2. Установить пакет на свой выбор, используя snap.*
+
+konstantin@konstantin-VirtualBox:~$ snap search 7zip
+Название            Версия                Издатель  Примечание  Описание
+p7zip-desktop       16.02.2               ernytech  -           P7Zip - Desktop
+lxqt-archiver-snap  200117.amd64-983.393  ito32     -           Archive Manager
+konstantin@konstantin-VirtualBox:~$ sudo snap install p7zip-desktop
+p7zip-desktop 16.02.2 от Ermesto Castellotti (ernytech) установлен
