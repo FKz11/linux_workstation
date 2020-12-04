@@ -1,0 +1,7 @@
+*1. Подключить репозиторий с nginx любым удобным способом, 
+установить nginx и потом удалить nginx, используя утилиту dpkg.*
+
+konstantin@konstantin-VirtualBox:~$ sudo apt-add-repository ppa:nginx/stable
+konstantin@konstantin-VirtualBox:~$ sudo apt update
+konstantin@konstantin-VirtualBox:~$ sudo apt install nginx
+konstantin@konstantin-VirtualBox:~$ sudo dpkg -r nginx
