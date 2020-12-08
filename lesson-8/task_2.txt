@@ -1,0 +1,16 @@
+*2. Запустить контейнер с Ubuntu.*
+
+konstantin@konstantin-VirtualBox:~$ docker search ubuntu
+konstantin@konstantin-VirtualBox:~$ docker pull ubuntu
+konstantin@konstantin-VirtualBox:~$ docker run -it --name ubuntu ubuntu /bin/bash
+root@8adc5e0ddd16:/# cat > file_test.txt
+my name is konstantin
+my surname is sergeev
+root@8adc5e0ddd16:/# ls
+bin   dev  file_test.txt  lib    lib64   media  opt   root  sbin  sys  usr
+boot  etc  home           lib32  libx32  mnt    proc  run   srv   tmp  var
+root@8adc5e0ddd16:/# cat file_test.txt
+my name is konstantin
+my surname is sergeev
+root@8adc5e0ddd16:/# exit
+exit

@@ -1,0 +1,57 @@
+*1. Подключить репозиторий Docker.*
+
+konstantin@konstantin-VirtualBox:~$ sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+konstantin@konstantin-VirtualBox:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+OK
+konstantin@konstantin-VirtualBox:~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+konstantin@konstantin-VirtualBox:~$ sudo apt update
+konstantin@konstantin-VirtualBox:~$ sudo apt install docker-ce -y
+konstantin@konstantin-VirtualBox:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2020-12-08 01:46:20 MSK; 18s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 3872 (dockerd)
+      Tasks: 8
+     Memory: 36.1M
+     CGroup: /system.slice/docker.service
+             └─3872 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+дек 08 01:46:19 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:19.846471050+03:00" level=warning msg="Your>
+дек 08 01:46:19 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:19.846581845+03:00" level=warning msg="Your>
+дек 08 01:46:19 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:19.846760101+03:00" level=warning msg="Your>
+дек 08 01:46:19 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:19.847030638+03:00" level=info msg="Loading>
+дек 08 01:46:19 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:19.991302044+03:00" level=info msg="Default>
+дек 08 01:46:20 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:20.078971979+03:00" level=info msg="Loading>
+дек 08 01:46:20 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:20.118030761+03:00" level=info msg="Docker >
+дек 08 01:46:20 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:20.118317151+03:00" level=info msg="Daemon >
+дек 08 01:46:20 konstantin-VirtualBox systemd[1]: Started Docker Application Container Engine.
+дек 08 01:46:20 konstantin-VirtualBox dockerd[3872]: time="2020-12-08T01:46:20.155225596+03:00" level=info msg="API lis>
+konstantin@konstantin-VirtualBox:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete                                                                                             
+Digest: sha256:e7c70bb24b462baa86c102610182e3efcb12a04854e8c582838d92970a09f323
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
