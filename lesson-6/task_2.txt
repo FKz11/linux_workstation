@@ -1,0 +1,115 @@
+*2. Создать однострочный скрипт, который создаст директории для нескольких годов (2010–2017), 
+в них — поддиректории для месяцев (от 01 до 12), и в каждый из них запишет несколько файлов с произвольными записями. 
+Например, 001.txt, содержащий текст «Файл 001», 002.txt с текстом «Файл 002» и т. д.*
+
+* Сам скрипт: 
+#!/bin/bash
+for i in {2010..2017}
+  do
+    mkdir $i
+    cd $i
+    for j in {1..12}
+      do
+        if [[ $((j / 10)) -eq 0 ]]
+          then
+            mkdir 0$j
+            cd 0$j
+          else
+            mkdir $j
+            cd $j
+        fi
+        for t in {1..5}
+          do
+            if [[ $((t / 10)) -eq 0 ]]
+              then
+                echo "Файл 00$t" > 00$t.txt
+              else
+                if [[ $((t / 100)) -eq 0 ]]
+                  then
+                    echo "Файл 0$t" > 0$t.txt
+                  else
+                    echo "Файл $t" > $t.txt
+                fi
+            fi
+        done
+        cd ../
+    done
+    cd ../
+done
+*
+
+konstantin@konstantin-VirtualBox:~$ mkdir lesson_6
+konstantin@konstantin-VirtualBox:~$ cd lesson_6
+konstantin@konstantin-VirtualBox:~/lesson_6$ nano script_task2.sh
+konstantin@konstantin-VirtualBox:~/lesson_6$ chmod +x script_task2.sh
+konstantin@konstantin-VirtualBox:~/lesson_6$ cat script_task2.sh
+#!/bin/bash
+for i in {2010..2017}
+  do
+    mkdir $i
+    cd $i
+    for j in {1..12}
+      do
+        if [[ $((j / 10)) -eq 0 ]]
+          then
+            mkdir 0$j
+            cd 0$j
+          else
+            mkdir $j
+            cd $j
+        fi
+        for t in {1..5}
+          do
+            if [[ $((t / 10)) -eq 0 ]]
+              then
+                echo "Файл 00$t" > 00$t.txt
+              else
+                if [[ $((t / 100)) -eq 0 ]]
+                  then
+                    echo "Файл 0$t" > 0$t.txt
+                  else
+                    echo "Файл $t" > $t.txt
+                fi
+            fi
+        done
+        cd ../
+    done
+    cd ../
+done
+konstantin@konstantin-VirtualBox:~/lesson_6$ ./script_task2.sh
+konstantin@konstantin-VirtualBox:~/lesson_6$ ls -l
+итого 36
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2010
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2011
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2012
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2013
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2014
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2015
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2016
+drwxrwxr-x 14 konstantin konstantin 4096 ноя 30 22:51 2017
+-rwxrwxr-x  1 konstantin konstantin  685 ноя 30 22:51 script_task2.sh
+konstantin@konstantin-VirtualBox:~/lesson_6$ cd 2010
+konstantin@konstantin-VirtualBox:~/lesson_6/2010$ ls -l
+итого 48
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 01
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 02
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 03
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 04
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 05
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 06
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 07
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 08
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 09
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 10
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 11
+drwxrwxr-x 2 konstantin konstantin 4096 ноя 30 22:51 12
+konstantin@konstantin-VirtualBox:~/lesson_6/2010$ cd 01
+konstantin@konstantin-VirtualBox:~/lesson_6/2010/01$ ls -l
+итого 20
+-rw-rw-r-- 1 konstantin konstantin 13 ноя 30 22:51 001.txt
+-rw-rw-r-- 1 konstantin konstantin 13 ноя 30 22:51 002.txt
+-rw-rw-r-- 1 konstantin konstantin 13 ноя 30 22:51 003.txt
+-rw-rw-r-- 1 konstantin konstantin 13 ноя 30 22:51 004.txt
+-rw-rw-r-- 1 konstantin konstantin 13 ноя 30 22:51 005.txt
+konstantin@konstantin-VirtualBox:~/lesson_6/2010/01$ cat 001.txt
+Файл 001

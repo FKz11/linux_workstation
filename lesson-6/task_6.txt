@@ -1,0 +1,58 @@
+*6. * Написать скрипт, делающий архивную копию каталога etc, и прописать задание в crontab.*
+
+*Скрипт:
+#!/bin/bash
+sudo tar -cvf /copy_etc.tar /etc
+*
+
+*Команда в cron:
+35 1 * * 2 /home/konstantin/script_task6.sh
+*
+
+konstantin@konstantin-VirtualBox:~$ nano script_task6.sh
+konstantin@konstantin-VirtualBox:~$ chmod +x script_task6.sh
+konstantin@konstantin-VirtualBox:~$ cat script_task6.sh
+#!/bin/bash
+sudo tar -cvf /copy_etc.tar /etc
+konstantin@konstantin-VirtualBox:~$ crontab -e
+no crontab for konstantin - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/mcedit
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]: 1
+crontab: installing new crontabcrontab: installing new crontab
+
+35 1 * * 2 /home/konstantin/script_task6.sh
+
+konstantin@konstantin-VirtualBox:~$ cd /
+konstantin@konstantin-VirtualBox:/$ ls -l
+итого 7168
+lrwxrwxrwx   1 root root       7 ноя 12 22:56 bin -> usr/bin
+drwxr-xr-x   3 root root    4096 ноя 13 01:08 boot
+drwxrwxr-x   2 root root    4096 ноя 12 22:58 cdrom
+-rw-r--r--   1 root root 7260160 дек  1 01:35 copy_etc.tar
+drwxr-xr-x  18 root root    4100 дек  1 00:14 dev
+drwxr-xr-x 130 root root   12288 ноя 30 23:52 etc
+drwxr-xr-x   7 root root    4096 ноя 26 04:26 home
+lrwxrwxrwx   1 root root       7 ноя 12 22:56 lib -> usr/lib
+lrwxrwxrwx   1 root root       9 ноя 12 22:56 lib32 -> usr/lib32
+lrwxrwxrwx   1 root root       9 ноя 12 22:56 lib64 -> usr/lib64
+lrwxrwxrwx   1 root root      10 ноя 12 22:56 libx32 -> usr/libx32
+drwx------   2 root root   16384 ноя 12 22:54 lost+found
+drwxr-xr-x   3 root root    4096 ноя 13 00:53 media
+drwxr-xr-x   2 root root    4096 июл 31 19:27 mnt
+drwxr-xr-x   3 root root    4096 ноя 13 01:06 opt
+dr-xr-xr-x 188 root root       0 дек  1  2020 proc
+drwx------   5 root root    4096 дек  1 00:14 root
+drwxr-xr-x  30 root root     880 дек  1 01:18 run
+lrwxrwxrwx   1 root root       8 ноя 12 22:56 sbin -> usr/sbin
+drwxr-xr-x   8 root root    4096 ноя 12 23:26 snap
+drwxr-xr-x   2 root root    4096 июл 31 19:27 srv
+dr-xr-xr-x  13 root root       0 дек  1 00:14 sys
+drwxrwxrwt  15 root root    4096 дек  1 01:34 tmp
+drwxr-xr-x  14 root root    4096 июл 31 19:28 usr
+drwxr-xr-x  14 root root    4096 июл 31 19:35 var
