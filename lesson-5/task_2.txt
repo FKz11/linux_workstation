@@ -1,0 +1,88 @@
+*2. Дать созданным файлам другие, 
+произвольные имена. Создать новую символическую ссылку. 
+Переместить ссылки в другую директорию.*
+
+*При переименовании исходного файла или его перемещении в другой каталог символическая ссылка на него
+перестаёт работать, когда как жесткая ссылка всё так же работает.
+Так происходит, потому что символическая ссылка содержит в себе путь к файлу, 
+а изменение имени файла или его перенос в другой каталог меняет его путь. 
+Когда как жесткая ссылка использует inode чтобы ссылать на одну и ту же область памяти носителя.
+Поэтому предпочтительнее использовать жесткие ссылки.*
+
+konstantin@konstantin-VirtualBox:~$ mkdir lesson_5
+konstantin@konstantin-VirtualBox:~$ cd lesson_5
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 8
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 01:54 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+konstantin@konstantin-VirtualBox:~/lesson_5$ echo "my name konstantin" > file1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ cp file1.txt file2.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ cat file2.txt
+my name konstantin
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 16
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 01:55 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270841 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file1.txt
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ln -s file1.txt file3.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 16
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 01:57 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270841 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file1.txt
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+271180 lrwxrwxrwx  1 konstantin konstantin    9 ноя 26 01:57 file3.txt -> file1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ln file1.txt file4.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 20
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 01:57 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file1.txt
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+271180 lrwxrwxrwx  1 konstantin konstantin    9 ноя 26 01:57 file3.txt -> file1.txt
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file4.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ mv file1.txt file_1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 20
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 02:10 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file_1.txt
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+271180 lrwxrwxrwx  1 konstantin konstantin    9 ноя 26 01:57 file3.txt -> file1.txt
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file4.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ cat file3.txt
+cat: file3.txt: Нет такого файла или каталога
+konstantin@konstantin-VirtualBox:~/lesson_5$ cat file4.txt
+my name konstantin
+konstantin@konstantin-VirtualBox:~/lesson_5$ mv file_1.txt file1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 20
+270828 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 02:10 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file1.txt
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+271180 lrwxrwxrwx  1 konstantin konstantin    9 ноя 26 01:57 file3.txt -> file1.txt
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file4.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ mkdir lesson_5_1
+konstantin@konstantin-VirtualBox:~/lesson_5$ mv file1.txt lesson_5_1/file1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5$ ls -lia
+итого 20
+270828 drwxrwxr-x  3 konstantin konstantin 4096 ноя 26 02:13 .
+287367 drwxr-xr-x 17 konstantin konstantin 4096 ноя 26 01:54 ..
+270827 -rw-rw-r--  1 konstantin konstantin   19 ноя 26 01:55 file2.txt
+271180 lrwxrwxrwx  1 konstantin konstantin    9 ноя 26 01:57 file3.txt -> file1.txt
+270841 -rw-rw-r--  2 konstantin konstantin   19 ноя 26 01:55 file4.txt
+271181 drwxrwxr-x  2 konstantin konstantin 4096 ноя 26 02:13 lesson_5_1
+konstantin@konstantin-VirtualBox:~/lesson_5$ cd lesson_5_1
+konstantin@konstantin-VirtualBox:~/lesson_5/lesson_5_1$ ls -lia
+итого 12
+271181 drwxrwxr-x 2 konstantin konstantin 4096 ноя 26 02:13 .
+270828 drwxrwxr-x 3 konstantin konstantin 4096 ноя 26 02:13 ..
+270841 -rw-rw-r-- 2 konstantin konstantin   19 ноя 26 01:55 file1.txt
+konstantin@konstantin-VirtualBox:~/lesson_5/lesson_5_1$ cd ..
+konstantin@konstantin-VirtualBox:~/lesson_5$ cat file3.txt
+cat: file3.txt: Нет такого файла или каталога
+konstantin@konstantin-VirtualBox:~/lesson_5$ cat file4.txt
+my name konstantin
